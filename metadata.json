@@ -1,0 +1,6 @@
+{
+  "name": "Leksmedia",
+  "description": "Leksmedia - High-End AI Video Production, Animation, and Creative Content Services Portfolio with interactive 3D elements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
