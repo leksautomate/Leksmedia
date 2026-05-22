@@ -27,13 +27,18 @@ import {
   Eye,
   Send,
   Sliders,
-  Play
+  Play,
+  Mail,
+  Phone,
+  MessageCircle
 } from 'lucide-react';
 
 import { NexusConfig, ServiceItem } from './types';
 import NexusCanvas from './components/NexusCanvas';
 import ServiceEstimator from './components/ServiceEstimator';
 import BriefGenerator from './components/BriefGenerator';
+import TestimonialCarousel from './components/TestimonialCarousel';
+import TrustIndicators from './components/TrustIndicators';
 
 function ContactFormWrapper() {
   const [name, setName] = useState('');
@@ -318,6 +323,7 @@ export default function App() {
             <a href="#about-section" className="hover:text-indigo-400 transition-colors">About</a>
             <a href="#services-section" className="hover:text-indigo-400 transition-colors">Services</a>
             <a href="#pricing-section" className="hover:text-indigo-400 transition-colors">Pricing</a>
+            <a href="#testimonials-section" className="hover:text-indigo-400 transition-colors">Testimonials</a>
             <a href="#brief-builder-anchor" className="hover:text-fuchsia-400 transition-colors flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5 text-fuchsia-400 animate-pulse" /> AI Video Director
             </a>
@@ -346,11 +352,11 @@ export default function App() {
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#020205]/95 backdrop-blur-2xl border-b border-white/10 px-4 py-4 space-y-3.5 flex flex-col font-mono text-xs">
             <a
-              href="#nexus-canvas-section"
+              href="#about-section"
               onClick={() => setMobileMenuOpen(false)}
               className="text-slate-300 hover:text-indigo-400 py-1"
             >
-              3D Interactive Nexus
+              About Me
             </a>
             <a
               href="#services-section"
@@ -360,6 +366,20 @@ export default function App() {
               Creative Services
             </a>
             <a
+              href="#pricing-section"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-slate-300 hover:text-indigo-400 py-1"
+            >
+              Pricing Packages
+            </a>
+            <a
+              href="#testimonials-section"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-slate-300 hover:text-indigo-400 py-1"
+            >
+              Client Testimonials
+            </a>
+            <a
               href="#estimator-section"
               onClick={() => setMobileMenuOpen(false)}
               className="text-slate-300 hover:text-indigo-400 py-1"
@@ -367,7 +387,7 @@ export default function App() {
               Interactive Cost Estimator
             </a>
             <a
-              href="#brief-builder"
+              href="#brief-builder-anchor"
               onClick={() => setMobileMenuOpen(false)}
               className="text-fuchsia-300 hover:text-fuchsia-400 py-1 flex items-center gap-1.5"
             >
@@ -383,7 +403,7 @@ export default function App() {
                 Cost Calculator
               </a>
               <a
-                href="#brief-builder"
+                href="#brief-builder-anchor"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex-1 py-2 rounded-xl text-center bg-white font-sans text-[11px] font-bold text-black"
               >
@@ -498,7 +518,13 @@ export default function App() {
         {/* Section 2: Portfolio Details by services requested */}
         <section className="space-y-8 pt-8" id="services-section">
           
-          <div className="text-center space-y-2.5 max-w-xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="text-center space-y-2.5 max-w-xl mx-auto"
+          >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 text-xs text-fuchsia-300 font-mono font-medium animate-pulse">
               <Layers className="w-3.5 h-3.5 text-fuchsia-400" />
               <span>What I Do</span>
@@ -509,10 +535,16 @@ export default function App() {
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans font-light">
               Every deliverable is built for performance — crafted to hold attention, grow channels, and convert viewers into followers and clients.
             </p>
-          </div>
+          </motion.div>
 
           {/* Interactive Navigation service tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 border-b border-white/5 pb-3 max-w-2xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            className="flex flex-wrap items-center justify-center gap-2 border-b border-white/5 pb-3 max-w-2xl mx-auto"
+          >
             {[
               { id: 'short_form', label: 'Short-Form Content' },
               { id: 'full_production', label: 'Full Video Production' },
@@ -531,35 +563,68 @@ export default function App() {
                 {tab.label}
               </button>
             ))}
-          </div>
+          </motion.div>
 
           {/* Selected Service Core Showcase */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-2xl shadow-2xl items-center">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-2xl shadow-2xl items-center"
+          >
             
             <div className="lg:col-span-7 space-y-5">
-              <span className="text-[10px] font-mono text-indigo-300 font-bold uppercase tracking-widest block bg-indigo-500/20 border border-indigo-500/30 w-fit px-2.5 py-1 rounded-xl">
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1, duration: 0.3 }}
+                className="text-[10px] font-mono text-indigo-300 font-bold uppercase tracking-widest block bg-indigo-500/20 border border-indigo-500/30 w-fit px-2.5 py-1 rounded-xl"
+              >
                 {activeServiceData.badge}
-              </span>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-white font-sans tracking-tight">
+              </motion.span>
+              <motion.h3
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15, duration: 0.3 }}
+                className="text-xl sm:text-2xl font-extrabold text-white font-sans tracking-tight"
+              >
                 {activeServiceData.title}
-              </h3>
-              <p className="text-sm text-slate-400 leading-relaxed font-sans font-light">
+              </motion.h3>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.4 }}
+                className="text-sm text-slate-400 leading-relaxed font-sans font-light"
+              >
                 {activeServiceData.long}
-              </p>
+              </motion.p>
 
               {/* Specific features grid inside service selection */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {activeServiceData.deliverables.map((item, index) => (
-                  <div key={index} className="flex items-start gap-2.5">
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + index * 0.08, duration: 0.3 }}
+                    className="flex items-start gap-2.5"
+                  >
                     <Check className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
                     <span className="text-xs text-slate-300 leading-normal font-sans font-light">{item}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
             {/* Performance Metric & Demonstration panel on the tab */}
-            <div className="lg:col-span-5 bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
+              className="lg:col-span-5 bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4 backdrop-blur-md"
+            >
               <div className="border-b border-white/10 pb-3">
                 <span className="text-[10px] font-mono text-indigo-300 font-bold uppercase tracking-wider block">Estimated Performance Stat</span>
                 <span className="text-xs text-slate-400 font-mono mt-0.5 block font-light">{activeServiceData.short}</span>
@@ -597,9 +662,9 @@ export default function App() {
                   <Calculator className="w-4 h-4 text-indigo-400 animate-bounce" /> Simulate Core Price
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
         </section>
 
@@ -822,6 +887,31 @@ export default function App() {
           </div>
         </section>
 
+        {/* Section: Trust Indicators Banner */}
+        <section className="pt-8 max-w-5xl mx-auto">
+          <TrustIndicators />
+        </section>
+
+        {/* Section: Client Testimonials Carousel */}
+        <section className="pt-8 scroll-mt-24" id="testimonials-section">
+          <div className="text-center space-y-2.5 max-w-xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300 font-mono font-medium">
+              <Users className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+              <span>Client Success Stories</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tighter uppercase">
+              Client Outcomes
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans font-light">
+              See how our custom pre-production visual scripts and cinematic AI pipelines scale actual viewer metrics and keep audiences hooked.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <TestimonialCarousel />
+          </div>
+        </section>
+
         {/* Section 4: Cost Estimator Card */}
         <section className="pt-8" id="estimator-section">
           
@@ -942,21 +1032,69 @@ export default function App() {
         </section>
 
         {/* Section: Contact & Submission Request */}
-        <section className="bg-gradient-to-tr from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-6 sm:p-10 backdrop-blur-2xl shadow-2xl space-y-8 scroll-mt-24 font-sans max-w-4xl mx-auto" id="contact-section">
+        <section className="bg-gradient-to-tr from-white/5 to-white/[0.02] border border-white/10 rounded-3xl p-6 sm:p-10 backdrop-blur-2xl shadow-2xl space-y-6 scroll-mt-24 font-sans max-w-4xl mx-auto" id="contact-section">
           
           <div className="text-center space-y-2 max-w-xl mx-auto">
             <span className="text-[10px] font-mono text-fuchsia-300 font-bold uppercase tracking-widest block bg-fuchsia-500/10 border border-fuchsia-500/20 w-fit px-2.5 py-1 rounded-xl mx-auto animate-pulse">
-              📬 Secure Pitch Portal
+              📬 Secure Pitch Portal & Contact Details
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tighter">
               Let's Coordinate Your Channel Scope
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
-              Send over your creative details, desired stream, or retention goals below, and I'll get back to you personally within 24 hours.
+              Submit your creative goals using our secure parameter transmitter, or reach out instantly through one of my active channels.
             </p>
           </div>
 
-          <ContactFormWrapper />
+          {/* Direct Action Speed Links Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto py-2">
+            <a 
+              href="mailto:Leksautomate@gmail.com"
+              className="group bg-white/5 border border-white/5 hover:border-indigo-500/30 hover:bg-white/[0.08] rounded-2xl p-4 flex items-center gap-3 transition-all duration-350"
+            >
+              <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-500/25 transition-colors flex-shrink-0">
+                <Mail className="w-4 h-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider block">Direct Email</span>
+                <span className="text-[11px] font-semibold text-slate-200 block truncate group-hover:text-white transition-colors">Leksautomate@gmail.com</span>
+              </div>
+            </a>
+
+            <a 
+              href="https://wa.me/2348107826698"
+              target="_blank"
+              rel="noreferrer"
+              className="group bg-white/5 border border-white/5 hover:border-emerald-500/30 hover:bg-white/[0.08] rounded-2xl p-4 flex items-center gap-3 transition-all duration-350"
+            >
+              <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/25 transition-colors flex-shrink-0">
+                <MessageCircle className="w-4 h-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider block">WhatsApp Direct</span>
+                <span className="text-[11px] font-semibold text-slate-200 block truncate group-hover:text-white transition-colors">+234 810 782 6698</span>
+              </div>
+            </a>
+
+            <a 
+              href="https://tiktok.com/@leksautomate"
+              target="_blank"
+              rel="noreferrer"
+              className="group bg-white/5 border border-white/5 hover:border-fuchsia-500/30 hover:bg-white/[0.08] rounded-2xl p-4 flex items-center gap-3 transition-all duration-350"
+            >
+              <div className="p-2.5 rounded-xl bg-fuchsia-500/10 text-fuchsia-400 group-hover:bg-fuchsia-500/25 transition-colors flex-shrink-0">
+                <Smartphone className="w-4 h-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider block">TikTok Feed</span>
+                <span className="text-[11px] font-semibold text-slate-200 block truncate group-hover:text-white transition-colors">@leksautomate</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="border-t border-white/5 pt-4">
+            <ContactFormWrapper />
+          </div>
 
         </section>
 
@@ -1007,14 +1145,33 @@ export default function App() {
               <div>
                 <span className="text-[10px] text-slate-300 uppercase font-bold tracking-wider block mb-3 font-mono">Representative Links</span>
                 <ul className="space-y-2 text-slate-500 font-light">
-                  <li className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors cursor-pointer">
-                    <Instagram className="w-3.5 h-3.5" /> Instagram
+                  <li>
+                    <a 
+                      href="https://tiktok.com/@leksautomate" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="flex items-center gap-1.5 hover:text-fuchsia-400 text-slate-400 transition-colors"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 text-fuchsia-400" /> TikTok Channel
+                    </a>
                   </li>
-                  <li className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors cursor-pointer">
-                    <Youtube className="w-3.5 h-3.5" /> YouTube Channel
+                  <li>
+                    <a 
+                      href="https://wa.me/2348107826698" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="flex items-center gap-1.5 hover:text-emerald-400 text-slate-400 transition-colors"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 text-emerald-400" /> WhatsApp Direct
+                    </a>
                   </li>
-                  <li className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors cursor-pointer">
-                    <ExternalLink className="w-3.5 h-3.5" /> TikTok Feed
+                  <li>
+                    <a 
+                      href="mailto:Leksautomate@gmail.com"
+                      className="flex items-center gap-1.5 hover:text-indigo-400 text-slate-400 transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-indigo-400" /> Leksautomate Email
+                    </a>
                   </li>
                 </ul>
               </div>
