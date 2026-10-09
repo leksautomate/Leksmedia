@@ -20,6 +20,13 @@ export const metadata: Metadata = {
     description: "One complete platform. Your personal brand system — Ikigai + 48h YouTube Outliers + Full Production Scripts.",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

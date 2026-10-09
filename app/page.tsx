@@ -25,11 +25,26 @@ import {
   Award,
   Video,
   Play,
-  Volume2
+  Volume2,
+  Terminal,
+  Code2,
+  Copy,
+  Cpu,
+  Boxes
 } from "lucide-react";
 
 export default function LandingPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [activeMcpTab, setActiveMcpTab] = useState<"claude" | "codex" | "host">("claude");
+  const [copiedMcp, setCopiedMcp] = useState<string | null>(null);
+
+  const copySnippet = (text: string, id: string) => {
+    if (typeof window !== "undefined" && navigator?.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedMcp(id);
+      setTimeout(() => setCopiedMcp(null), 2000);
+    }
+  };
 
   const faqs = [
     {
@@ -86,7 +101,7 @@ export default function LandingPage() {
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto font-light">
-            The complete YouTube personal brand system. We build your Ikigai blueprint, track verified 48h YouTube viral outliers, and deliver ready-to-record full-length production scripts with 7-step retention hooks.
+            The complete self-serve YouTube personal brand system. Build your own Ikigai blueprint, track verified 48h YouTube viral outliers, and generate ready-to-record full-length production scripts with 7-step retention hooks—all on your own.
           </p>
 
           {/* Dual CTAs */}
@@ -306,11 +321,14 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-14">
             <span className="font-mono text-xs uppercase tracking-widest text-[#b8965a]">
-              Proven Methodology
+              Self-Serve Creator Workflow
             </span>
             <h2 className="font-serif text-5xl sm:text-6xl text-white mt-2">
-              Set it once. <em className="text-[#b8965a] italic">We handle the rest.</em>
+              Build your engine. <em className="text-[#b8965a] italic">Run it on your own terms.</em>
             </h2>
+            <p className="text-sm text-white/60 mt-3 font-light leading-relaxed max-w-xl">
+              We aren&apos;t an agency holding you back. You use the Leksmedia system to build, calibrate, and execute your entire YouTube brand on your own.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 border border-white/10 rounded-2xl overflow-hidden bg-[#0d0d10]">
@@ -586,6 +604,304 @@ export default function LandingPage() {
               <p className="text-xs text-white/50 leading-relaxed pt-1">
                 Extracted from 4,000 real viral outlier scripts to maintain 70%+ retention through the critical first 60 seconds.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MODEL CONTEXT PROTOCOL (MCP) — CLAUDE CODE, CODEX & MCP HOST SECTION */}
+      <section id="developer-mcp" className="py-24 px-6 border-b border-white/10 bg-[#070709] relative overflow-hidden">
+        {/* Ambient background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-[#b8965a]/5 blur-[120px] pointer-events-none rounded-full" />
+
+        <div className="max-w-6xl mx-auto space-y-14 relative z-10">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-3 text-left max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#b8965a]/30 bg-[#b8965a]/10 text-xs font-mono text-[#b8965a]">
+                <Terminal className="w-3.5 h-3.5" />
+                Model Context Protocol (MCP) · Agent Ecosystem
+              </div>
+              <h2 className="font-serif text-4xl sm:text-5xl text-white tracking-tight">
+                Build on your own. Hook into{" "}
+                <em className="text-[#b8965a] font-serif-italic block sm:inline">Claude Code, Codex &amp; any MCP Host.</em>
+              </h2>
+              <p className="text-sm text-zinc-300 font-light leading-relaxed">
+                You aren&apos;t dependent on an agency or third-party contractors. You use Leksmedia&apos;s self-serve intelligence to build your own engine on your own terms. Use our visual web studio or plug our live YouTube outlier velocity, hook remixer, and script generator directly into your AI agent stack.
+              </p>
+            </div>
+
+            <Link
+              href="/docs/mcp"
+              className="btn-secondary px-6 py-3 text-xs font-mono font-medium inline-flex items-center gap-2 self-start md:self-auto hover:border-[#b8965a]/50 hover:text-white transition-all"
+            >
+              <Code2 className="w-3.5 h-3.5 text-[#b8965a]" />
+              Full MCP Documentation →
+            </Link>
+          </div>
+
+          {/* Interactive Environment Tabs */}
+          <div className="border border-white/10 rounded-2xl bg-[#0c0c10] overflow-hidden shadow-2xl">
+            {/* Tab Selector Bar */}
+            <div className="flex flex-wrap items-center border-b border-white/10 bg-white/[0.02] p-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveMcpTab("claude")}
+                className={`px-5 py-2.5 rounded-xl font-mono text-xs transition-all flex items-center gap-2 ${
+                  activeMcpTab === "claude"
+                    ? "bg-[#b8965a] text-black font-semibold shadow-lg shadow-[#b8965a]/20"
+                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5" />
+                Claude Code CLI
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveMcpTab("codex")}
+                className={`px-5 py-2.5 rounded-xl font-mono text-xs transition-all flex items-center gap-2 ${
+                  activeMcpTab === "codex"
+                    ? "bg-[#b8965a] text-black font-semibold shadow-lg shadow-[#b8965a]/20"
+                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <Cpu className="w-3.5 h-3.5" />
+                Codex &amp; IDE (Cursor / VS Code)
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveMcpTab("host")}
+                className={`px-5 py-2.5 rounded-xl font-mono text-xs transition-all flex items-center gap-2 ${
+                  activeMcpTab === "host"
+                    ? "bg-[#b8965a] text-black font-semibold shadow-lg shadow-[#b8965a]/20"
+                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <Boxes className="w-3.5 h-3.5" />
+                Universal MCP Host (Desktop / Agents)
+              </button>
+            </div>
+
+            {/* Tab Contents */}
+            <div className="p-8 space-y-6">
+              {activeMcpTab === "claude" && (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h3 className="font-serif text-2xl text-white flex items-center gap-2">
+                        <Terminal className="w-5 h-5 text-[#b8965a]" />
+                        Connect Claude Code in 1 Terminal Line
+                      </h3>
+                      <p className="text-xs text-zinc-400 font-light mt-1">
+                        Run this in your local terminal. Claude Code immediately gains direct access to 48-hour YouTube outlier scores, 7-step hook formulas, and Ikigai positioning queries.
+                      </p>
+                    </div>
+                    <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full self-start">
+                      HTTP SSE Transport
+                    </span>
+                  </div>
+
+                  {/* Terminal Code Mockup */}
+                  <div className="relative rounded-xl bg-black/80 border border-white/10 p-5 font-mono text-xs">
+                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5 text-[11px] text-zinc-500">
+                      <span>Terminal / Bash / PowerShell</span>
+                      <span className="text-[#b8965a]">leksmedia-mcp-v1</span>
+                    </div>
+                    <pre className="text-zinc-200 overflow-x-auto whitespace-pre-wrap break-all pr-14 leading-relaxed">
+                      claude mcp add --transport http leksmedia https://leksmedia.com/api/v1/mcp --header &quot;Authorization: Bearer leks_live_YOUR_API_KEY&quot;
+                    </pre>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        copySnippet(
+                          'claude mcp add --transport http leksmedia https://leksmedia.com/api/v1/mcp --header "Authorization: Bearer leks_live_YOUR_API_KEY"',
+                          "claude"
+                        )
+                      }
+                      className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all border border-white/10"
+                      title="Copy command"
+                    >
+                      {copiedMcp === "claude" ? (
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Example Agent Prompt */}
+                  <div className="p-4 rounded-xl border border-white/5 bg-white/[0.02] space-y-2">
+                    <span className="font-mono text-[11px] text-[#b8965a] uppercase tracking-wider font-semibold">
+                      Example Agent Command in Claude Code:
+                    </span>
+                    <p className="text-xs text-zinc-300 font-mono italic">
+                      &gt; &ldquo;Query Leksmedia for 500+ outlier videos published in the last 48 hours for &apos;AI Automation Agencies&apos;, break down the best hook, and generate a 10-minute production script into ./scripts/video-01.md&rdquo;
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {activeMcpTab === "codex" && (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h3 className="font-serif text-2xl text-white flex items-center gap-2">
+                        <Cpu className="w-5 h-5 text-[#b8965a]" />
+                        Codex, Cursor &amp; VS Code Configuration
+                      </h3>
+                      <p className="text-xs text-zinc-400 font-light mt-1">
+                        Add this JSON configuration into your project&apos;s <code className="text-[#b8965a]">.cursor/mcp.json</code> or IDE MCP settings to allow your coding agent to scaffold scripts autonomously.
+                      </p>
+                    </div>
+                    <span className="font-mono text-[10px] text-[#b8965a] bg-[#b8965a]/10 border border-[#b8965a]/20 px-2.5 py-1 rounded-full self-start">
+                      mcp.json format
+                    </span>
+                  </div>
+
+                  {/* JSON Code Mockup */}
+                  <div className="relative rounded-xl bg-black/80 border border-white/10 p-5 font-mono text-xs">
+                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5 text-[11px] text-zinc-500">
+                      <span>.cursor/mcp.json</span>
+                      <span className="text-[#b8965a]">JSON-RPC 2.0</span>
+                    </div>
+                    <pre className="text-zinc-200 overflow-x-auto whitespace-pre leading-relaxed">
+{`{
+  "mcpServers": {
+    "leksmedia": {
+      "url": "https://leksmedia.com/api/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer leks_live_YOUR_API_KEY"
+      }
+    }
+  }
+}`}
+                    </pre>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        copySnippet(
+`{
+  "mcpServers": {
+    "leksmedia": {
+      "url": "https://leksmedia.com/api/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer leks_live_YOUR_API_KEY"
+      }
+    }
+  }
+}`,
+                          "codex"
+                        )
+                      }
+                      className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all border border-white/10"
+                      title="Copy JSON config"
+                    >
+                      {copiedMcp === "codex" ? (
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Capabilities List */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono text-zinc-300">
+                    <div className="p-3 rounded-lg border border-white/5 bg-white/[0.02]">
+                      <span className="text-[#b8965a] block mb-1">01. Autonomous Scouting</span>
+                      Scout competitors and viral spikes while writing code.
+                    </div>
+                    <div className="p-3 rounded-lg border border-white/5 bg-white/[0.02]">
+                      <span className="text-[#b8965a] block mb-1">02. Hook Remix Engine</span>
+                      Remix 7-step retention curves directly into your workspace.
+                    </div>
+                    <div className="p-3 rounded-lg border border-white/5 bg-white/[0.02]">
+                      <span className="text-[#b8965a] block mb-1">03. Full-Length Output</span>
+                      Scaffold complete 8–12 min YouTube scripts into git.
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeMcpTab === "host" && (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h3 className="font-serif text-2xl text-white flex items-center gap-2">
+                        <Boxes className="w-5 h-5 text-[#b8965a]" />
+                        Universal MCP Host Integration
+                      </h3>
+                      <p className="text-xs text-zinc-400 font-light mt-1">
+                        Connect Claude Desktop, Goose, or your custom agent loops directly to Leksmedia via standard Model Context Protocol endpoints.
+                      </p>
+                    </div>
+                    <span className="font-mono text-[10px] text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2.5 py-1 rounded-full self-start">
+                      Standard MCP Spec
+                    </span>
+                  </div>
+
+                  {/* Tools Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl border border-white/10 bg-black/40 space-y-2">
+                      <div className="font-mono text-xs text-[#b8965a] font-semibold">
+                        tool: leksmedia_get_outliers
+                      </div>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                        Fetches videos in the last 48 hours exceeding 200+ and 500+ Outlier Scores across your specified niche or competitor list.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-white/10 bg-black/40 space-y-2">
+                      <div className="font-mono text-xs text-[#b8965a] font-semibold">
+                        tool: leksmedia_generate_hook
+                      </div>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                        Generates high-retention 7-step hook sequences (Pattern Interrupt, Stake Agitation, New Paradigm) calibrated for high watch-time.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-white/10 bg-black/40 space-y-2">
+                      <div className="font-mono text-xs text-[#b8965a] font-semibold">
+                        tool: leksmedia_write_script
+                      </div>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                        Drafts complete 8–12 minute full-length YouTube scripts with scene-by-scene B-roll direction, spoken cadence, and title packaging.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-white/10 bg-black/40 space-y-2">
+                      <div className="font-mono text-xs text-[#b8965a] font-semibold">
+                        tool: leksmedia_ikigai_audit
+                      </div>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-light">
+                        Synthesizes Passion, Skills, Mission, and Vocation to extract defensible brand positioning and 4 monetization pillars.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-4 rounded-xl border border-[#b8965a]/20 bg-[#b8965a]/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="text-xs text-zinc-300">
+                      <strong>Host Endpoint:</strong> <code className="text-[#b8965a] ml-1">https://leksmedia.com/api/v1/mcp</code>
+                    </div>
+                    <Link
+                      href="/docs/mcp"
+                      className="text-xs font-mono text-[#b8965a] hover:underline flex items-center gap-1"
+                    >
+                      Read MCP Server Documentation →
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Bottom Disclaimer Banner */}
+            <div className="p-4 border-t border-white/10 bg-black/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-400">
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                100% Self-Serve Architecture: We provide the engine, you build and own your YouTube machine on your own.
+              </span>
+              <Link href="/onboarding" className="text-[#b8965a] hover:underline">
+                Get API Keys via Onboarding →
+              </Link>
             </div>
           </div>
         </div>
